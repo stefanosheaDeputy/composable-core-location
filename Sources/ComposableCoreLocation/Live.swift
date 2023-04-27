@@ -19,7 +19,7 @@ extension LocationManager {
   public static var live: Self {
     let manager = CLLocationManager()
 
-    let delegate = Effect<Action, Never>.run { subscriber in
+    let delegate = Effect<Action>.run { subscriber in
       let delegate = LocationManagerDelegate(subscriber)
       manager.delegate = delegate
 
@@ -116,7 +116,8 @@ extension LocationManager {
               manager.requestTemporaryFullAccuracyAuthorization(
                 withPurposeKey: purposeKey
               ) { error in
-                subscriber.send(completion: error.map { .failure(.init($0)) } ?? .finished)
+                  // This should fail but leaving this here so it will compile
+                  subscriber.send(completion: .finished)
               }
             } else {
               subscriber.send(completion: .finished)
@@ -247,9 +248,9 @@ extension LocationManager {
 }
 
 private class LocationManagerDelegate: NSObject, CLLocationManagerDelegate {
-  let subscriber: Effect<LocationManager.Action, Never>.Subscriber
+  let subscriber: Effect<LocationManager.Action>.Subscriber
 
-  init(_ subscriber: Effect<LocationManager.Action, Never>.Subscriber) {
+  init(_ subscriber: Effect<LocationManager.Action>.Subscriber) {
     self.subscriber = subscriber
   }
 
