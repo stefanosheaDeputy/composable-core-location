@@ -257,11 +257,11 @@ public struct LocationManager {
 
   public var authorizationStatus: () -> CLAuthorizationStatus
 
-  public var delegate: () -> Effect<Action, Never>
+  public var delegate: () ->  EffectTask<Action>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var dismissHeadingCalibrationDisplay: () -> Effect<Never, Never>
+  public var dismissHeadingCalibrationDisplay: () ->  EffectTask<Never>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
@@ -288,15 +288,15 @@ public struct LocationManager {
   public var monitoredRegions: () -> Set<Region>
 
   @available(tvOS, unavailable)
-  public var requestAlwaysAuthorization: () -> Effect<Never, Never>
+  public var requestAlwaysAuthorization: () -> EffectTask<Never>
 
-  public var requestLocation: () -> Effect<Never, Never>
+  public var requestLocation: () -> EffectTask<Never>
 
-  public var requestWhenInUseAuthorization: () -> Effect<Never, Never>
+  public var requestWhenInUseAuthorization: () -> EffectTask<Never>
 
-  public var requestTemporaryFullAccuracyAuthorization: (String) -> Effect<Never, Error>
+  public var requestTemporaryFullAccuracyAuthorization: (String) -> EffectPublisher<Never, Error>
 
-  public var set: (Properties) -> Effect<Never, Never>
+  public var set: (Properties) -> EffectTask<Never>
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
@@ -304,42 +304,42 @@ public struct LocationManager {
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringForRegion: (Region) -> Effect<Never, Never>
+  public var startMonitoringForRegion: (Region) ->  EffectTask<Never>
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringSignificantLocationChanges: () -> Effect<Never, Never>
+  public var startMonitoringSignificantLocationChanges: () ->  EffectTask<Never>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var startMonitoringVisits: () -> Effect<Never, Never>
+  public var startMonitoringVisits: () ->  EffectTask<Never>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var startUpdatingHeading: () -> Effect<Never, Never>
+  public var startUpdatingHeading: () ->  EffectTask<Never>
 
   @available(tvOS, unavailable)
-  public var startUpdatingLocation: () -> Effect<Never, Never>
-
-  @available(tvOS, unavailable)
-  @available(watchOS, unavailable)
-  public var stopMonitoringForRegion: (Region) -> Effect<Never, Never>
+  public var startUpdatingLocation: () ->  EffectTask<Never>
 
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var stopMonitoringSignificantLocationChanges: () -> Effect<Never, Never>
+  public var stopMonitoringForRegion: (Region) ->  EffectTask<Never>
+
+  @available(tvOS, unavailable)
+  @available(watchOS, unavailable)
+  public var stopMonitoringSignificantLocationChanges: () ->  EffectTask<Never>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
   @available(watchOS, unavailable)
-  public var stopMonitoringVisits: () -> Effect<Never, Never>
+  public var stopMonitoringVisits: () ->  EffectTask<Never>
 
   @available(macOS, unavailable)
   @available(tvOS, unavailable)
-  public var stopUpdatingHeading: () -> Effect<Never, Never>
+  public var stopUpdatingHeading: () ->  EffectTask<Never>
 
-  public var stopUpdatingLocation: () -> Effect<Never, Never>
+  public var stopUpdatingLocation: () ->  EffectTask<Never>
 
   /// Updates the given properties of a uniquely identified `CLLocationManager`.
   @available(macOS, unavailable)
@@ -354,7 +354,7 @@ public struct LocationManager {
     headingOrientation: CLDeviceOrientation? = nil,
     pausesLocationUpdatesAutomatically: Bool? = nil,
     showsBackgroundLocationIndicator: Bool? = nil
-  ) -> Effect<Never, Never> {
+  ) ->  EffectTask<Never> {
     self.set(
       Properties(
         activityType: activityType,
