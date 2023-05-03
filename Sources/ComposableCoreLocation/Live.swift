@@ -116,8 +116,7 @@ extension LocationManager {
               manager.requestTemporaryFullAccuracyAuthorization(
                 withPurposeKey: purposeKey
               ) { error in
-                  // This should fail but leaving this here so it will compile
-                  subscriber.send(completion: .finished)
+                  subscriber.send(completion: error.map { .failure(.init($0)) } ?? .finished)
               }
             } else {
               subscriber.send(completion: .finished)
